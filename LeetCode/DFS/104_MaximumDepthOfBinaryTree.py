@@ -11,14 +11,18 @@ class Solution:
         :type root: TreeNode
         :rtype: int
         """
-        depth = 0
+        depth = 1
         maxTreeDepth = [0]
         
         def maxDepthHelper(node, depth):
             if not node:
+                return
+            
+            if not node.left and not node.right:
                 if depth > maxTreeDepth[0]:
                     maxTreeDepth[0] = depth
                 return
+            
             maxDepthHelper(node.left, depth+1)
             maxDepthHelper(node.right, depth+1)
         
