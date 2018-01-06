@@ -16,7 +16,6 @@ class Solution:
         
         nodeQueue = [[root, depth]]
         
-        
         while nodeQueue:
             node, depth = nodeQueue.pop()
             if node:
