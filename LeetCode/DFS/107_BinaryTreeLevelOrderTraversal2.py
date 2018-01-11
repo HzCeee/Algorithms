@@ -5,7 +5,7 @@
 #         self.left = None
 #         self.right = None
 
-class Solution:
+class DFSRecursionSolution:
     def levelOrderBottom(self, root):
         """
         :type root: TreeNode
@@ -28,4 +28,27 @@ class Solution:
         
         levelOrderBottomHelper(root, depth)
         
+        return levelOrderTraversal[::-1]
+
+
+class DFSStackSolution:
+    def levelOrderBottom(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        depth = 0
+        levelOrderTraversal = []
+        
+        nodeQueue = [[root, depth]]
+        
+        while nodeQueue:
+            node, depth = nodeQueue.pop()
+            if node:
+                if depth + 1 > len(levelOrderTraversal):
+                    levelOrderTraversal.append([])
+                levelOrderTraversal[depth].append(node.val)
+                nodeQueue.append([node.right, depth+1])
+                nodeQueue.append([node.left, depth+1])
+                
         return levelOrderTraversal[::-1]
