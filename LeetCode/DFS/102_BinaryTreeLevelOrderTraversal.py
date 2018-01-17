@@ -14,16 +14,16 @@ class Solution:
         depth = 0
         levelOrderTraversal = []
         
-        nodeQueue = [[root, depth]]
+        nodeStack = [[root, depth]]
         
-        while nodeQueue:
-            node, depth = nodeQueue.pop()
+        while nodeStack:
+            node, depth = nodeStack.pop()
             if node:
                 if depth + 1 > len(levelOrderTraversal):
                     levelOrderTraversal.append([])
                 levelOrderTraversal[depth].append(node.val)
                 
-                nodeQueue.append([node.right, depth+1])
-                nodeQueue.append([node.left, depth+1])
+                nodeStack.append([node.right, depth+1])
+                nodeStack.append([node.left, depth+1])
         
         return levelOrderTraversal
