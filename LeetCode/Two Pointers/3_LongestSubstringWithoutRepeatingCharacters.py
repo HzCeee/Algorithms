@@ -4,6 +4,8 @@ class Solution:
         :type s: str
         :rtype: int
         """
+        # consider substring s[left: right]
+
         left = right = 0
         maxLength = 0
         while right < len(s):

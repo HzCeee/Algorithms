@@ -4,6 +4,8 @@ class Solution:
         :type height: List[int]
         :rtype: int
         """
+        # left, right denotes the indexes of 2 borders
+
         left, right = 0, len(height) - 1
         maxVolume = 0
         
