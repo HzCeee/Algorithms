@@ -45,7 +45,7 @@ def devideAndConquer(nums):
     
     leftInterSum, rightInterSum, leftMaxInterSum, rightMaxInterSum = \\
     0, 0, -float('inf'), -float('inf')
-    for num in nums[: mid+1]:
+    for num in nums[: mid+1][::-1]:
       	leftInterSum += num
         leftMaxInterSum = max(leftMaxInterSum, leftInterSum)
     for num in nums[mid+1:]:
@@ -111,6 +111,42 @@ def maxProfit(prices):
         coolDown[i] = hold[i - 1] + prices[i]
 
     return max(free[-1], coolDown[-1])
+```
+
+3. Top Down DP
+
+__Can I Win__
+
+```python
+def canIWin(self, maxChoosableInteger, desiredTotal):
+      """
+      :type maxChoosableInteger: int
+      :type desiredTotal: int
+      :rtype: bool
+      """
+      # memo denotes whether 
+      # the curren player can win given the candidate number and desired total number
+
+      if (1 + maxChoosableInteger) * maxChoosableInteger/2 < desiredTotal:
+          return False
+      self.memo = {}
+
+      def canIWinHelper(nums, desiredTotal):
+          hashKey = str(nums)
+          if hashKey in self.memo:
+              return self.memo[hashKey]
+
+          if nums[-1] >= desiredTotal:
+              return True
+
+          for i in range(len(nums)):
+              if not canIWinHelper(nums[:i] + nums[i+1:], desiredTotal - nums[i]):
+                  self.memo[hashKey]= True
+                  return True
+          self.memo[hashKey] = False
+          return False
+
+      return canIWinHelper(list(range(1, maxChoosableInteger + 1)), desiredTotal)
 ```
 
 # DFS
