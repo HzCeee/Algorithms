@@ -4,7 +4,8 @@ class Solution:
         :type nums: List[int]
         :rtype: bool
         """
-        # memo[i][j] denotes the maximum score can get given array[i: j+1]
+        # memo[i][j] denotes the maximum value of score of the first player higher than score of the second player higher given array nums[i: j+1]
+        # memo[i, j] = max(nums[i] - memo[i + 1, j], nums[j] - memo[i, j - 1])
         
         self.memo = {}
         
