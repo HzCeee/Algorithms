@@ -7,7 +7,7 @@ class Solution:
         """
         # memo denotes whether 
         # the current player can win given the candidate number and desired total number
-        # memo[nums] = any(memo(nums[:i] + nums[i+1:]) for i in range(len(nums)))
+        # memo[nums] = not any(memo(nums[:i] + nums[i+1:]) for i in range(len(nums)))
         
         if (1 + maxChoosableInteger) * maxChoosableInteger/2 < desiredTotal:
             return False
