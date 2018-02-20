@@ -198,6 +198,8 @@ def levelOrderDFS(root):
 
 # BFS
 
+1. 1D BFS
+
 __Check Symmetry__
 
 ```python
@@ -237,6 +239,91 @@ Note:
 
 - Implement BFS by generating nodes in next layer
 - Implement BFS by deque
+
+2. 2D BFS
+
+__Surrounded Regions__
+
+```python
+def solve(self, board):
+      """
+      :type board: List[List[str]]
+      :rtype: void Do not return anything, modify board in-place instead.
+      """
+      queue = collections.deque([])
+      for r in range(len(board)):
+          for c in range(len(board[0])):
+              if (r in [0, len(board)-1] or c in [0, len(board[0])-1]) and board[r][c] == "O":
+                  queue.append((r, c))
+
+      while queue:
+          r, c = queue.popleft()
+          if 0<=r<len(board) and 0<=c<len(board[0]) and board[r][c] == "O":
+              board[r][c] = "D"
+              queue.append((r-1, c))
+              queue.append((r+1, c))
+              queue.append((r, c-1))
+              queue.append((r, c+1))
+
+      for r in range(len(board)):
+          for c in range(len(board[0])):
+              if board[r][c] == "O":
+                  board[r][c] = "X"
+              elif board[r][c] == "D":
+                  board[r][c] = "O"
+```
+
+__Number of Islands__
+
+```python
+def numIslands(self, grid):
+      """
+      :type grid: List[List[str]]
+      :rtype: int
+      """
+      def sink(i, j):
+          if 0 <= i < len(grid) and 0 <= j < len(grid[i]) and grid[i][j] == '1':
+              grid[i][j] = '0'
+              sink(i + 1, j)
+              sink(i - 1, j)
+              sink(i, j + 1)
+              sink(i, j - 1)
+              return 1
+          return 0
+
+      return sum(sink(i, j) for i in range(len(grid)) for j in range(len(grid[i])))
+```
+
+__01 Matrix__
+
+```python
+def updateMatrix(self, matrix):
+      """
+      :type matrix: List[List[int]]
+      :rtype: List[List[int]]
+      """
+      blockQueue, m, n = [], len(matrix), len(matrix[0])
+      for i in range(m):
+          for j in range(n):
+              if matrix[i][j] != 0:
+                  matrix[i][j] = float('inf')
+              else:
+                  blockQueue.append((i, j))
+
+      while blockQueue:
+          row, col = blockQueue.pop(0)
+          for curRow, curCol in ((row, 1+col), (row, col-1), (row+1, col), (row-1, col)):
+              distance = matrix[row][col] + 1
+              if 0 <= curRow < m and 0 <= curCol < n and distance < matrix[curRow][curCol]:
+                  matrix[curRow][curCol] = distance
+                  blockQueue.append((curRow, curCol))
+
+      return matrix
+```
+
+Note:
+
+In order to avoid recursion between two unvisited elements, we need to set flag, like line 15 in __Surrounded Regions__ and line 8 in __Number of Islands__ and line 19 in __01 Matrix__.
 
 # Two Pointer
 
