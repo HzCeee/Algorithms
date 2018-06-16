@@ -10,22 +10,24 @@ class Solution:
             for i in range(len(strNum)):
                 digit = int(strNum[i])
                 if digit == 0:
-                    nextDigits = [9, 1]
+                    nextDigits = [1, 9]
                 elif digit == 9:
-                    nextDigits = [8, 0]
+                    nextDigits = [0, 8]
                 else:
-                    nextDigits = [digit - 1, digit + 1]
+                    nextDigits = [digit + 1, digit - 1]
                 for nextDigit in nextDigits:
                     nextNumbers.append(
                         strNum[:i] + str(nextDigit) + strNum[i+1:]
                     )
             return nextNumbers
         
-        numQueue = [("0000", 0)]
+        numCountQueue = [("0000", 0)]
+        numQueue = set(["0000"])
         triedNum = []
         while numQueue:
-            curNum, moveCount = numQueue.pop(0)
+            curNum, moveCount = numCountQueue.pop(0)
             triedNum.append(curNum)
+            # print(triedNum)
             
             if curNum == target:
                 return moveCount
@@ -33,9 +35,8 @@ class Solution:
                 continue
             else:
                 for nextNum in generateNextNumber(curNum):
-                    if nextNum not in triedNum: 
-                        numQueue.append((nextNum, moveCount + 1))
+                    if nextNum not in triedNum and nextNum not in numQueue: 
+                        numCountQueue.append((nextNum, moveCount + 1))
+                        numQueue.add(nextNum)
         
         return -1
-                    
-                
