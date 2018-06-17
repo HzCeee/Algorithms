@@ -8,26 +8,21 @@ class Solution:
         subsets = [set(), set()]
         allNodes = set(range(len(graph)))
         visitedNodes = set()
-        nodeIndexQueue, nodeQueue = [], set()
+        nodeIndexQueue = []
         
         while len(visitedNodes) != len(graph):
             newNode = list(allNodes.difference(visitedNodes))[0]
             nodeIndexQueue.append((newNode, 0))
-            nodeQueue.add(newNode)
             while nodeIndexQueue:
                 node, index = nodeIndexQueue.pop(0)
 
+                if node in visitedNodes: continue
                 visitedNodes.add(node)
                 subsets[index].add(node)
 
                 for adjNode in graph[node]:
-                    if adjNode not in visitedNodes and adjNode not in nodeQueue:
-                        nodeIndexQueue.append((adjNode, 1-index))
-                        nodeQueue.add(adjNode)
+                    nodeIndexQueue.append((adjNode, 1-index))
                     if adjNode in subsets[index]:
                         return False
 
         return True
-            
-                
-            
