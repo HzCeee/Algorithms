@@ -19,22 +19,40 @@ class Solution:
         parentNodes = {}
         entryNodeGlobal = [None]
         
-        def traversal(parentNode, node):
-            if node in visitingNodes: 
+        # DFS by recursion
+#         def traversal(parentNode, node):
+#             if node in visitingNodes: 
+#                 entryNodeGlobal[0] = node
+#                 parentNodes[node] = parentNode
+#                 return
+#             visitingNodes.add(node)
+            
+#             parentNodes[node] = parentNode
+            
+#             for adjNode in neighborNodes[node]:
+#                 if adjNode != parentNode:
+#                     traversal(node, adjNode)
+                
+#             visitingNodes.remove(node)
+        
+#         traversal(None, 1)
+        
+        # DFS by stack
+        nodeQueue = [(0, 1)]
+        while nodeQueue:
+            parentNode, node = nodeQueue.pop()
+            
+            if node in visitingNodes:
                 entryNodeGlobal[0] = node
                 parentNodes[node] = parentNode
-                return
+                break
             visitingNodes.add(node)
             
             parentNodes[node] = parentNode
             
             for adjNode in neighborNodes[node]:
                 if adjNode != parentNode:
-                    traversal(node, adjNode)
-                
-            visitingNodes.remove(node)
-        
-        traversal(None, 1)
+                    nodeQueue.append((node, adjNode))
         
         # contruct circle
         entryNode = entryNodeGlobal[0]
