@@ -5,7 +5,8 @@ class Solution:
         :rtype: List[int]
         """
         ans = [0] * len(temperatures)
-        stack = []
+        stack = [] # indices of temperatures which have not found next warmer temperature
+        
         for i, t in enumerate(temperatures):
             while stack and temperatures[stack[-1]] < t:
                 cur = stack.pop()
