@@ -23,15 +23,15 @@ class Solution:
             
 #         # print(sortedUglyNumbers)
 #         return sortedUglyNumbers[n - 1]
-        
-        prime_idx = [0 for _ in xrange(len(primes))]
-        uglies = [1]
-        heap = [(p, i) for i, p in enumerate(primes)]
-        while len(uglies) < n:
-            smallest_val, i = heapq.heappop(heap)
-            prime_idx[i] += 1
-            if smallest_val > uglies[-1]:
-                uglies.append(smallest_val)
-            heapq.heappush(heap, (primes[i]*uglies[prime_idx[i]], i))
-        return uglies[n-1]
+    
+        nextMultiplyPrimeIndex = [0 for _ in range(len(primes))]
+        uglyNumbers = [1]
+        heap = [(prime, originalIndex) for originalIndex, prime in enumerate(primes)]
+        while len(uglyNumbers) < n:
+            prime, originalIndex = heapq.heappop(heap)
+            nextMultiplyPrimeIndex[originalIndex] += 1
+            if prime > uglyNumbers[-1]:
+                uglyNumbers.append(prime)
+            heapq.heappush(heap, (primes[originalIndex] * uglyNumbers[nextMultiplyPrimeIndex[originalIndex]], originalIndex))
+        return uglyNumbers[n-1]
         
