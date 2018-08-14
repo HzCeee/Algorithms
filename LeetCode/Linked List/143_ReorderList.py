@@ -35,7 +35,6 @@ class Solution(object):
             curNode = curNode.next
             if not newHead:
                 curNode.next = None
-                check(dummyNode.next)
                 return dummyNode.next
             head = newHead
             isHead = not isHead
